@@ -29,12 +29,12 @@ public class ApiOperationDemo implements Watcher{
         ZooKeeper zooKeeper = new ZooKeeper(CONNECTS_STRING, 5000, new ApiOperationDemo());
         countDownLatch.await();
 
-        zooKeeper.exists(path, true);
+//        zooKeeper.exists(path, true);
 
         // 增加节点
         zooKeeper.create(path, "123".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
-        byte[] data = zooKeeper.getData(path, true, stat);
-        System.out.println("创建后的值: " + new String(data));
+//        byte[] data = zooKeeper.getData(path, true, stat);
+//        System.out.println("创建后的值: " + new String(data));
 
         // 增加子节点
         Stat exists2 = zooKeeper.exists(path + childPath, true);
@@ -58,7 +58,7 @@ public class ApiOperationDemo implements Watcher{
         zooKeeper.setData(path, "LuYi".getBytes(), -1);
 
         // 查询节点数据
-        data = zooKeeper.getData(path, true, new Stat());
+        byte[] data = zooKeeper.getData(path, true, new Stat());
         System.out.println("修改后的值: " + new String(data));
 
         // 删除子节点
