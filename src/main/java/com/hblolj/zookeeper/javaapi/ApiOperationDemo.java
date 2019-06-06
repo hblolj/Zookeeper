@@ -4,6 +4,7 @@ import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.Stat;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -22,7 +23,7 @@ public class ApiOperationDemo implements Watcher{
 
     public static void main(String[] args) throws IOException, KeeperException, InterruptedException {
 
-        String path = "/hblolj7";
+        String path = "/parent/hblolj7";
         String childPath = "/child";
 
         // 建立连接
@@ -32,7 +33,11 @@ public class ApiOperationDemo implements Watcher{
 //        zooKeeper.exists(path, true);
 
         // 增加节点
-        zooKeeper.create(path, "123".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+        String result = zooKeeper.create(path, "123".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+        System.out.println("result: " + result);
+
+        List<String> children = zooKeeper.getChildren("/parent", true);
+        System.out.println("children: " + children);
 //        byte[] data = zooKeeper.getData(path, true, stat);
 //        System.out.println("创建后的值: " + new String(data));
 
